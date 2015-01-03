@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<style>
+html,body,#map-class {
+	height: 600px;
+	width: 100%;
+	margin: 0px;
+	padding-top: 0px;
+	padding-right: 10px;
+	padding-bottom: 15px;
+	padding-left: 10px;
+}
+</style>
+<title>Running taxis - Long range of Taxis</title>
+
+<!-- core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="css/animate.min.css" rel="stylesheet">
+<link href="css/prettyPhoto.css" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+
+
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+<link rel="shortcut icon" href="images/ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="images/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="images/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="images/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="images/ico/apple-touch-icon-57-precomposed.png">
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="https://apis.google.com/js/client:platform.js" async defer></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+</head>
+<!--/head-->
+
+<body>
+
+	<header id="header">
+		<!--/.top-bar-->
+		<nav class="navbar navbar-inverse">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html"><img
+						src="images/logo.png" alt="logo"></a>
+				</div>
+
+				<div>
+					<div class="social">
+						<ul class="social-share">
+							<li><i class=" top-number fa fa-phone-square">
+									+91-1234567890</i></li>
+							<li><a href="http://www.facebook.com/runningtaxi"><i
+									class="fa fa-facebook"></i></a></li>
+							<li><a href="http://www.twitter.com/runningtaxis"><i
+									class="fa fa-twitter"></i></a></li>
+							<li><a href="www.linkedin.com/runningtaxi"><i
+									class="fa fa-linkedin"></i></a></li>
+						</ul>
+
+						<button hidden="true" id="disconnect">Logout</button>
+
+
+						<div id="clientname" style="color: white"></div>
+						<div id="emailtag" style="color: white"></div>
+						<div hidden="true" id="gConnect">
+							<button class="g-signin"
+								data-scope="https://www.googleapis.com/auth/plus.login  email profile"
+								data-requestvisibleactions="http://schemas.google.com/AddActivity"
+								data-clientId="858981060488-c92ugelsfr4da6m57nn2clbppckhdp6s.apps.googleusercontent.com"
+								data-callback="onSignInCallback" data-theme="dark"
+								data-cookiepolicy="single_host_origin"></button>
+							<div id="loaderror">
+								This section will be hidden by JQuery. If you can see this
+								message, you may be viewing the file rather than running a web
+								server.<br /> The sample must be run from http or https. See
+								instructions at <a
+									href="https://developers.google.com/+/quickstart/javascript">
+									https://developers.google.com/+/quickstart/javascript</a>.
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="collapse navbar-collapse navbar-right">
+					<ul class="nav navbar-nav">
+						<li><a href="index.html">Home</a></li>
+						<li><a href="about-us.html">About Us</a></li>
+						<li><a href="book.html">Book</a></li>
+						<li><a href="tlist.html">Availability</a></li>
+						<li><a href="mylist.html">My Requests</a></li>
+						<li><a href="contact-us.html">Contact</a></li>
+					</ul>
+				</div>
+				<div class="collapse navbar-collapse navbar-right">
+					<div id="clientname" style="color: white"></div>
+					<div id="emailtag" style="color: white"></div>
+				</div>
+
+			</div>
+			<!--/.container-->
+		</nav>
+		<!--/nav-->
+	</header>
+	<!--/header-->
+
+	<div class="row">
+		<div class="col-lg-10">
+			<div class="page-header">
+				<h2>Accept - Request by customer or agent</h2>
+			</div>
+
+			<!-- To use feedback icons, ensure that you use Bootstrap v3.1.0 or later -->
+			<form id="registrationEditForm" method="post" class="form-horizontal"
+				data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+				data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+				data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"
+				onsubmit="forEditingRequest()">
+
+				<div class="form-group">
+					<div class="col-sm-10">
+						<div id="requestdetails"></div>
+					</div>
+				</div>
+
+
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Taxi Name</label>
+					<div class="col-sm-5">
+						<input type="text" placeholder="Taxi Name" class="form-control"
+							name="tagentname" id="tagentname" data-bv-notempty="true"
+							data-bv-notempty-message="The taxi operator required and cannot be empty"
+							data-bv-stringlength="true" data-bv-stringlength-min="6"
+							data-bv-stringlength-message="The taxi operator must be more than 6 characters long" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Taxi Email Address</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" name="tagentemail"
+							id="tagentemail" data-bv-notempty="true"
+							placeholder="Email Address" data-bv-stringlength-max="90"
+							data-bv-notempty-message="The email address is required and cannot be empty"
+							data-bv-emailaddress="true"
+							data-bv-emailaddress-message="The email address is not a valid" />
+					</div>
+				</div>
+
+
+
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Taxi Mobile</label>
+					<div class="col-sm-5">
+						<input type="text" placeholder="Taxi Mobile " class="form-control"
+							name="tagentmobile" id="tagentmobile" data-bv-notempty="true"
+							data-bv-notempty-message="The taxi operator mobile number is required and cannot be empty"
+							data-bv-stringlength="true" data-bv-stringlength-min="6"
+							data-bv-stringlength-max="15"
+							data-bv-stringlength-message="The taxi operator mobile number must be more than 6 and less than 15 characters long"
+							data-bv-regexp="true" data-bv-regexp-regexp="^[0-9+-]"
+							data-bv-regexp-message="The taxi operator mobile number  can only consist of +  - number(s)" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-9 col-sm-offset-3">
+						<!-- Do NOT use name="submit" or id="submit" for the Submit button -->
+						<button type="reset" class="btn  ">Clear</button>
+						<button type="submit" class="btn ">Accept Request</button>
+					</div>
+				</div>
+
+
+			</form>
+		</div>
+		<div class="col-lg-2">
+			<h2>Google ADs</h2>
+
+		</div>
+
+	</div>
+	<footer id="footer" class="midnight-blue">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					&copy; 2014 <a target="_blank" href="http://runningtaxi.com/"
+						title="Running Taxis- Free taxi classifieds">Running Taxis</a>.
+					All Rights Reserved.
+				</div>
+				<div class="col-sm-6">
+					<ul class="pull-right">
+						<li><a href="index.html">Home</a></li>
+						<li><a href="about-us.html">About Us</a></li>
+						<li><a href="faq.html">Faq</a></li>
+						<li><a href="contact-us.html">Contact Us</a></li>
+						<li><a href="privacy.html">Privacy</a></li>
+						<li><a href="terms.html">Terms </a></li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--/#footer-->
+	<!-- /container -->
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('registrationEditForm').bootstrapValidator();
+		});
+
+		var q = document.URL.split('?')[1];
+		var requestData = {};
+		requestData.id = q;
+
+		function fetchRequest() {
+			//alert("in fetch request");
+			gapi.client.taxidetailendpoint
+					.getTaxiDetail(requestData)
+					.execute(
+							function(resp) {
+
+								if (!resp.code) {
+									resp.items = resp.items || [];
+									var result = "";
+									result = "<table class=\"table table-hover table-bordered\"><thead><tr><th>Pickup</th><th>Drop off</th><th>Pickup date & Time</th><th>Vehicle Type</th><th>Req Status</th></tr></thead><tbody>";
+									//alert("result in loop =" + result);
+									result = result + "<tr><td >"
+											+ resp.tpickupaddress + "</td>"
+											+ "<td >" + resp.tdropaddress
+											+ "</td>" + "<td colspan =1>"
+											+ resp.tstartdate + "<br>@ Time :"
+											+ resp.tstarttimehr + ":"
+											+ resp.tstarttimemin + "</td>"
+											+ "<td >" + resp.tagentvehiletype
+											+ "</td>" + "<td >"
+											+ "Customer Name : <b>"
+											+ resp.tclientname
+											+ "</b><br>Email Address : <b>"
+											+ resp.tclientemail
+											+ "</b><br>Contact Number : <b>"
+											+ resp.tclientmobile
+											+ "</b><br>Comments : <b>"
+											+ resp.tclientremarks + "<br></b>"
+											+ "Status : <a href=edit.html?"
+											+ resp.trequestid + ">"
+											+ resp.tbookstatus + "</a>"
+											+ "</td></tr>";
+
+									result = result + "	</tbody></table>";
+									document.getElementById('requestdetails').innerHTML = result;
+									if (resp.tagentmobile != null) {
+										document.getElementById('tagentmobile').value = resp.tagentmobile;
+									}
+
+									requestData = resp;
+								}//if !resp.code
+							}//for functions(resp)
+					)//for execute (
+
+		}
+
+		function init() {
+			//Parameters are APIName,APIVersion,CallBack function,API Root 
+			gapi.client.load('taxidetailendpoint', 'v1', null,
+					'https://runningtaxis.appspot.com/_ah/api').then(
+					function() {
+						console.log('loaded.');
+						fetchRequest();
+					});
+		}
+
+		function forEditingRequest() {
+
+			if ($(document).ready(function() {
+				$('#registrationEditForm').isValid()
+			})) {
+				updateTaxiRequest();
+
+			} else {
+				alert("form is not VALID, error oks");
+
+			}
+
+		}
+
+		function updateTaxiRequest() {
+
+			var _tagentname = document.getElementById('tagentname').value;
+			var _tagentmobile = document.getElementById('tagentmobile').value;
+			var _tagentemail = document.getElementById('tagentemail').value;
+			var q = document.URL.split('?')[1];
+			//alert("Q=" + q);
+			requestData.id = q;
+			requestData.trequestid = q;
+			requestData.tagentname = _tagentname;
+			requestData.tagentemail = _tagentemail;
+			requestData.tagentmobile = _tagentmobile;
+			requestData.tbookstatus = "Accepted by " + _tagentname
+					+ "<br> Mobile : " + _tagentmobile;
+
+			gapi.client.taxidetailendpoint.updateTaxiDetail(requestData).then(
+					function(response) {
+						alert("Request Approved");
+					}, function(reason) {
+						alert("Failed message captured");
+					});
+			alert("***************Request Accepted successfully.........*************");
+			window.location.replace("mylist.html");
+		}
+	</script>
+
+	
+	<script type="text/javascript">
+		var helper = (function() {
+			var BASE_API_PATH = 'plus/v1/';
+
+			return {
+				/**
+				 * Hides the sign in button and starts the post-authorization operations.
+				 *
+				 * @param {Object} authResult An Object which contains the access token and
+				 *   other authentication information.
+				 */
+				onSignInCallback : function(authResult) {
+					gapi.client.load('plus', 'v1').then(
+							function() {
+								$('#authResult').html('Auth Result:<br/>');
+								for ( var field in authResult) {
+									$('#authResult').append(
+											' ' + field + ': '
+													+ authResult[field]
+													+ '<br/>');
+								}
+								if (authResult['access_token']) {
+									$('#authOps').show('slow');
+									$('#gConnect').hide();
+									$('#userprofile').show();
+									helper.profile();
+									helper.people();
+								} else if (authResult['error']) {
+									// There was an error, which means the user is not signed in.
+									// As an example, you can handle by writing to the console:
+									console.log('There was an error: '
+											+ authResult['error']);
+									$('#authResult').append('Logged out');
+									$('#authOps').hide('slow');
+									$('#gConnect').show();
+									$('#userprofile').show();
+									$('#disconnect').hide();
+									$('#main-slider').hide();
+
+								}
+								console.log('authResult', authResult);
+							});
+				},
+
+				/**
+				 * Calls the OAuth2 endpoint to disconnect the app for the user.
+				 */
+				disconnect : function() {
+					// Revoke the access token.
+					$
+							.ajax({
+								type : 'GET',
+								url : 'https://accounts.google.com/o/oauth2/revoke?token='
+										+ gapi.auth.getToken().access_token,
+								async : false,
+								contentType : 'application/json',
+								dataType : 'jsonp',
+								success : function(result) {
+									console.log('revoke response: ' + result);
+									$('#authOps').hide();
+									$('#profile').empty();
+									$('#visiblePeople').empty();
+									$('#authResult').empty();
+									$('#gConnect').show();
+								},
+								error : function(e) {
+									console.log(e);
+								}
+							});
+					window.location.href = "index.html";
+				},
+
+				/**
+				 * Gets and renders the list of people visible to this app.
+				 */
+				people : function() {
+					gapi.client.plus.people
+							.list({
+								'userId' : 'me',
+								'collection' : 'visible'
+							})
+							.then(
+									function(res) {
+										var people = res.result;
+										$('#visiblePeople').empty();
+										$('#visiblePeople').append(
+												'Number of people visible to this app: '
+														+ people.totalItems
+														+ '<br/>');
+										for ( var personIndex in people.items) {
+											person = people.items[personIndex];
+											$('#visiblePeople')
+													.append(
+															'<img src="' + person.image.url + '">');
+										}
+									});
+				},
+
+				/**
+				 * Gets and renders the currently signed in user's profile data.
+				 */
+				profile : function() {
+					gapi.client.plus.people
+							.get({
+								'userId' : 'me'
+							})
+							.then(
+									function(res) {
+										//	alert("rendering details");
+										var profile = res.result;
+										$('#profile').empty();
+										document.getElementById('emailtag').innerHTML = profile.emails[0].value
+												.trim();
+										document.getElementById('clientname').innerHTML = profile.displayName
+												.trim();
+										document.getElementById('tagentname').value = profile.displayName
+												.trim();
+										document.getElementById('tagentemail').value = profile.emails[0].value
+												.trim();
+										document.getElementById('tagentname').disabled = true;
+										document.getElementById('tagentemail').disabled = true;
+
+										$('#disconnect').show();
+										$('#main-slider').show();
+
+									}, function(err) {
+										var error = err.result;
+										$('#profile').empty();
+										$('#profile').append(error.message);
+									});
+				}
+			};
+		})();
+
+		/**
+		 * jQuery initialization
+		 */
+		$(document)
+				.ready(
+						function() {
+							$('#disconnect').click(helper.disconnect);
+							$('#loaderror').hide();
+							// alert($('[data-clientid]').length);
+							if ($('[data-clientid]').length < 0) {
+								alert('This sample requires your OAuth credentials (client ID) '
+										+ 'from the Google APIs console:\n'
+										+ '    https://code.google.com/apis/console/#:access\n\n'
+										+ 'Find and replace YOUR_CLIENT_ID with your client ID.');
+							}
+						});
+
+		/**
+		 * Calls the helper method that handles the authentication flow.
+		 *
+		 * @param {Object} authResult An Object which contains the access token and
+		 *   other authentication information.
+		 */
+		function onSignInCallback(authResult) {
+			helper.onSignInCallback(authResult);
+		}
+	</script>
+</body>
+<script src="https://apis.google.com/js/client.js?onload=init"></script>
+</html>

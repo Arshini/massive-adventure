@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<style>
+html,body,#map-class {
+	height: 600px;
+	width: 100%;
+	margin: 0px;
+	padding-top: 0px;
+	padding-right: 10px;
+	padding-bottom: 15px;
+	padding-left: 10px;
+}
+</style>
+<title>Running taxis - Long range of Taxis</title>
+
+<!-- core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="css/animate.min.css" rel="stylesheet">
+<link href="css/prettyPhoto.css" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+<link rel="shortcut icon" href="images/ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="images/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="images/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="images/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="images/ico/apple-touch-icon-57-precomposed.png">
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="https://apis.google.com/js/client:platform.js" async defer></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+</head>
+<!--/head-->
+
+<body class="homepage">
+
+	<header id="header">
+		<!--/.top-bar-->
+		<nav class="navbar navbar-inverse" role="banner">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html"><img
+						src="images/logo.png" alt="logo"></a>
+				</div>
+
+				<div>
+					<div class="social">
+						<ul class="social-share">
+							<li><i class=" top-number fa fa-phone-square">
+									+91-1234567890</i></li>
+							<li><a href="http://www.facebook.com/runningtaxi"><i
+									class="fa fa-facebook"></i></a></li>
+							<li><a href="http://www.twitter.com/runningtaxis"><i
+									class="fa fa-twitter"></i></a></li>
+							<li><a href="www.linkedin.com/runningtaxi"><i
+									class="fa fa-linkedin"></i></a></li>
+						</ul>
+
+						<button hidden="true" id="disconnect">Logout</button>
+
+
+						<div id="clientname" style="color: white"></div>
+						<div id="emailtag" style="color: white"></div>
+						
+
+					</div>
+				</div>
+				<div class="collapse navbar-collapse navbar-right">
+					<ul class="nav navbar-nav">
+						<li><a href="agent.html">Create Agent</a></li>
+						<li><a href="agentlist.html">All Agents</a></li>
+						<li><a href="xlist.html">All Bookings</a></li>
+					</ul>
+				</div>
+				<div class="collapse navbar-collapse navbar-right">
+					<div id="clientname" style="color: white"></div>
+					<div id="emailtag" style="color: white"></div>
+				</div>
+				<!-- <div class="collapse navbar-collapse navbar-right">
+					<div class="social">
+						<ul class="social-share">
+							<li><i class=" top-number fa fa-phone-square">
+									+91-1234567890</i></li>
+							<li><a href="http://www.facebook.com/runningtaxi"><i
+									class="fa fa-facebook"></i></a></li>
+							<li><a href="http://www.twitter.com/runningtaxis"><i
+									class="fa fa-twitter"></i></a></li>
+							<li><a href="www.linkedin.com/runningtaxi"><i
+									class="fa fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+				</div> -->
+			</div>
+			<!--/.container-->
+		</nav>
+		<!--/nav-->
+	</header>
+	<!--/header-->
+
+	<section hidden="true" id="main-slider" class="no-margin">
+		<!-- Example row of columns -->
+		<div class="row">
+
+			<div class="col-lg-6">
+				<h2>List of Requests NEW</h2>
+				<div id="listAllRequests"></div>
+			</div>
+
+			<div class="col-lg-6">
+				<h2>Availbility on the MAP</h2>
+				<div class="map-class" id="map-class"></div>
+			</div>
+		</div>
+	</section>
+
+
+	<!--/#main-slider-->
+	<section id="no-main-slider" class="no-margin">
+		<!-- Example row of columns -->
+		<div class="row">
+			<div class="col-lg-12">
+				&nbsp;
+				<div id="gConnect">
+					<button class="g-signin"
+						data-scope="https://www.googleapis.com/auth/plus.login  email profile"
+						data-requestvisibleactions="http://schemas.google.com/AddActivity"
+						data-clientId="858981060488-c92ugelsfr4da6m57nn2clbppckhdp6s.apps.googleusercontent.com"
+						data-callback="onSignInCallback" data-theme="dark"
+						data-cookiepolicy="single_host_origin"></button> Sign in to see the requests
+					<div id="loaderror">
+						This section will be hidden by JQuery. If you can see this
+						message, you may be viewing the file rather than running a web
+						server.<br /> The sample must be run from http or https. See
+						instructions at <a
+							href="https://developers.google.com/+/quickstart/javascript">
+							https://developers.google.com/+/quickstart/javascript</a>.
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<footer id="footer" class="midnight-blue">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					&copy; 2014 <a target="_blank" href="http://runningtaxi.com/"
+						title="Running Taxis- Free taxi classifieds">Running Taxis</a>.
+					All Rights Reserved.
+				</div>
+				<div class="col-sm-6">
+					<ul class="pull-right">
+						<li><a href="index.html">Home</a></li>
+						<li><a href="about-us.html">About Us</a></li>
+						<li><a href="faq.html">Faq</a></li>
+						<li><a href="contact-us.html">Contact Us</a></li>
+						<li><a href="privacy.html">Privacy</a></li>
+						<li><a href="terms.html">Terms </a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--/#footer-->
+
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.prettyPhoto.js"></script>
+	<script src="js/jquery.isotope.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/wow.min.js"></script>
+	<script type="text/javascript">
+		function init() {
+			document.getElementById('listAllRequests').innerHTML = "....loading...";
+
+			//Parameters are APIName,APIVersion,CallBack function,API Root 
+			gapi.client.load('taxidetailendpoint', 'v1', null,
+					'https://runningtaxis.appspot.com/_ah/api').then(
+					function() {
+						//				alert("taxidetailendpoint for LIST ALL LOADED");
+						console.log('loaded.');
+
+					});
+
+		}
+
+		function cancelRequest(id) {
+			var requestData1 = {};
+			requestData1.id = id;
+			requestData1.trequestid = id;
+
+			var txt;
+			var r = confirm("Press OK to delete the request!");
+			if (r == true) {
+				gapi.client.taxidetailendpoint.removeTaxiDetail(requestData1)
+						.then(function(response) {
+							alert("Request Cancel");
+						}, function(reason) {
+							alert("Failed message captured");
+						});
+				window.location.href = "xlist.html";
+			}
+
+			//alert("request removed");
+		}
+
+		var ctrlang, ctrlat;
+		function listAllRequests(emailtag1) {
+
+			//alert("in list all requests function");
+			gapi.client.taxidetailendpoint
+					.listTaxiDetail({
+						'emailAddress' : emailtag1,
+						'isCustomer' : 'true'
+					})
+					.execute(
+							function(resp) {
+
+								if (!resp.code) {
+									resp.items = resp.items || [];
+									var result = "";
+									result = "<table class=\"table table-hover table-bordered table-striped table-condensed\"><thead><tr><th>#</th><th>Pickup</th><th>Drop off</th><th>Pickup date & Time</th><th>Vehicle Type</th><th>Req Status</th></tr></thead><tbody>";
+									var orderno = 0;
+									if (resp.items.length <= 0) {
+										result = result
+												+ "<tr ><td colspan=6> No Records found ... </td></tr>"
+
+									}
+									for (var i = 0; i < resp.items.length; i++) {
+										//	alert("result in loop =" + result);
+										if (validforListing(resp.items[i].tstartdate)) {
+											orderno = orderno + 1;
+											result = result
+													+ "<tr><td>"
+													+ (orderno)
+													+ "</td><td>"
+													+ resp.items[i].tpickupaddress
+													+ "</td>"
+													+ "<td>"
+													+ resp.items[i].tdropaddress
+													+ "</td>"
+													+ "<td>"
+													+ resp.items[i].tstartdate
+													+ "<br>@ Time :"
+													+ resp.items[i].tstarttimehr
+													+ ":"
+													+ resp.items[i].tstarttimemin
+													+ "</td>"
+													+ "<td>"
+													+ resp.items[i].tagentvehiletype
+													+ "</td>" + "<td>";
+
+											if (resp.items[i].tbookstatus == "In Process") {
+												result = result
+														+ resp.items[i].tbookstatus
+														+ "</td></tr>";
+											} else {
+												result = result
+														+ "<a href=javascript:cancelRequest('"
+														+ resp.items[i].trequestid
+														+ "')>"
+														+ resp.items[i].tbookstatus
+														+ "</td></tr>";
+
+											}
+											//	alert(resp.items[i].tclientname);
+											//alert(resp.items[i].trecordtype);
+											tempdtails = resp.items[i].tclientname
+													+ " & Mobile : "
+													+ resp.items[i].tclientmobile;
+											tempdtails = tempdtails.valueOf();
+
+											tempimg = resp.items[i].trecordtype;
+											tempimg = tempimg.valueOf();
+
+											tempitem2 = [
+													tempimg,
+													tempdtails,
+													Number((resp.items[i].tpickupgeotag)
+															.split(",")[0]),
+													Number((resp.items[i].tpickupgeotag)
+															.split(",")[1]),
+													+(orderno) ];
+											if (orderno == 1) {
+												//	alert("i == 0"+tempimg);
+												ctrlang = Number((resp.items[i].tpickupgeotag)
+														.split(",")[1]);
+												ctrlat = Number((resp.items[i].tpickupgeotag)
+														.split(",")[0]);
+											}
+											//	tempitem= ['Ravi- Mobile : 92247018-4 Seater Free',-33.890542,151.274856,4];
+
+											//alert("RECORD 1 : " + tempitem);
+											//alert("RECORD 2 : " + tempitem2);
+											beaches.push(tempitem2);
+											//beaches.push(tempitem);
+										}
+									}
+
+									result = result + "	</tbody></table>";
+									document.getElementById('listAllRequests').innerHTML = result;
+									//	alert("about to call set markets");
+									//	alert("ctrlat" + ctrlat);
+									//	alert("ctrlang" + ctrlang);
+									var mapOptions = {
+										zoom : 5,
+										center : new google.maps.LatLng(ctrlat,
+												ctrlang)
+									}
+									var map = new google.maps.Map(document
+											.getElementById('map-class'),
+											mapOptions);
+
+									setMarkers(map, beaches);
+								}
+							});
+
+		}
+
+		function newTRecord(id, value) {
+			this.id = id
+			this.value = value
+		}
+		// The following example creates complex markers to indicate beaches near
+		// Sydney, NSW, Australia. Note that the anchor is set to
+		// (0,32) to correspond to the base of the flagpole.
+		var beaches = [];
+
+		/**
+		 * Data for the markers consisting of a name, a LatLng and a zIndex for
+		 * the order in which these markers should display on top of each
+		 * other.
+		 */
+
+		function setMarkers(map, locations) {
+			// Add markers to the map
+			//alert("Inset Markers");
+			// Marker sizes are expressed as a Size of X,Y
+			// where the origin of the image (0,0) is located
+			// in the top left of the image.
+
+			// Origins, anchor positions and coordinates of the marker
+			// increase in the X direction to the right and in
+			// the Y direction down.
+			var image = {
+				url : 'images/RT_User_Icon.png',
+				// This marker is 20 pixels wide by 32 pixels tall.
+				size : new google.maps.Size(40, 42),
+				// The origin for this image is 0,0.
+				origin : new google.maps.Point(0, 0),
+				// The anchor for this image is the base of the flagpole at 0,32.
+				anchor : new google.maps.Point(0, 42)
+			};
+			var goods = {
+				url : 'images/RT_Truck_Icon.png',
+				// This marker is 20 pixels wide by 32 pixels tall.
+				size : new google.maps.Size(40, 42),
+				// The origin for this image is 0,0.
+				origin : new google.maps.Point(0, 0),
+				// The anchor for this image is the base of the flagpole at 0,32.
+				anchor : new google.maps.Point(0, 42)
+			};
+			var taxi = {
+				url : 'images/RT_Cab_Icon.png',
+				// This marker is 20 pixels wide by 32 pixels tall.
+				size : new google.maps.Size(40, 42),
+				// The origin for this image is 0,0.
+				origin : new google.maps.Point(0, 0),
+				// The anchor for this image is the base of the flagpole at 0,32.
+				anchor : new google.maps.Point(0, 42)
+			};
+			var cust = {
+				url : 'images/RT_User_Icon.png',
+				// This marker is 20 pixels wide by 32 pixels tall.
+				size : new google.maps.Size(40, 42),
+				// The origin for this image is 0,0.
+				origin : new google.maps.Point(0, 0),
+				// The anchor for this image is the base of the flagpole at 0,32.
+				anchor : new google.maps.Point(0, 42)
+			};
+			//alert("Inset Markers 2");
+			// Shapes define the clickable region of the icon.
+			// The type defines an HTML &lt;area&gt; element 'poly' which
+			// traces out a polygon as a series of X,Y points. The final
+			// coordinate closes the poly by connecting to the first
+			// coordinate.
+			var shape = {
+				coords : [ 1, 1, 1, 20, 18, 20, 18, 1 ],
+				type : 'poly'
+			};
+			//alert("Inset Markers locations.length" + locations.length);
+			for (var i = 0; i < locations.length; i++) {
+
+				var beach = locations[i];
+				//	alert("Inside for loop");
+				// 			alert("beatch item{0}" + beach[0]);
+				// 			alert("beatch item{1}" + beach[1]);
+				// 			alert("beatch item{2}" + beach[2]);
+				// 			alert("beatch item{3}" + beach[3]);
+				// 			alert("beatch item{4}" + beach[4]);
+				var myLatLng = new google.maps.LatLng(beach[2], beach[3]);
+
+				if (beach[0] == "cust") {
+					var marker = new google.maps.Marker({
+						position : myLatLng,
+						map : map,
+						icon : cust,
+						shape : shape,
+						title : beach[1],
+						zIndex : beach[4]
+					});
+				} else if (beach[0] == "taxi") {
+					var marker = new google.maps.Marker({
+						position : myLatLng,
+						map : map,
+						icon : taxi,
+						shape : shape,
+						title : beach[1],
+						zIndex : beach[4]
+					});
+				} else if (beach[0] == "goods") {
+					var marker = new google.maps.Marker({
+						position : myLatLng,
+						map : map,
+						icon : goods,
+						shape : shape,
+						title : beach[1],
+						zIndex : beach[4]
+					});
+				}
+
+			}
+		}
+
+		function validforListing(var1) {
+			var cDate = new Date();
+			sDate = new Date(var1);
+			//alert("cDate > sDate"+(cDate > sDate));
+			if (cDate > sDate) {
+				return false;
+			} else {
+				return true
+			}
+		}
+		//google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+	<script type="text/javascript">
+		var helper = (function() {
+			var BASE_API_PATH = 'plus/v1/';
+
+			return {
+				/**
+				 * Hides the sign in button and starts the post-authorization operations.
+				 *
+				 * @param {Object} authResult An Object which contains the access token and
+				 *   other authentication information.
+				 */
+				onSignInCallback : function(authResult) {
+					gapi.client.load('plus', 'v1').then(
+							function() {
+								$('#authResult').html('Auth Result:<br/>');
+								for ( var field in authResult) {
+									$('#authResult').append(
+											' ' + field + ': '
+													+ authResult[field]
+													+ '<br/>');
+								}
+								if (authResult['access_token']) {
+									$('#authOps').show('slow');
+									$('#gConnect').hide();
+									$('#userprofile').show();
+									helper.profile();
+									helper.people();
+								} else if (authResult['error']) {
+									// There was an error, which means the user is not signed in.
+									// As an example, you can handle by writing to the console:
+									console.log('There was an error: '
+											+ authResult['error']);
+									$('#authResult').append('Logged out');
+									$('#authOps').hide('slow');
+									$('#gConnect').show();
+									$('#userprofile').show();
+									$('#disconnect').hide();
+									$('#main-slider').hide();
+
+								}
+								console.log('authResult', authResult);
+							});
+				},
+
+				/**
+				 * Calls the OAuth2 endpoint to disconnect the app for the user.
+				 */
+				disconnect : function() {
+					// Revoke the access token.
+					$
+							.ajax({
+								type : 'GET',
+								url : 'https://accounts.google.com/o/oauth2/revoke?token='
+										+ gapi.auth.getToken().access_token,
+								async : false,
+								contentType : 'application/json',
+								dataType : 'jsonp',
+								success : function(result) {
+									console.log('revoke response: ' + result);
+									$('#authOps').hide();
+									$('#profile').empty();
+									$('#visiblePeople').empty();
+									$('#authResult').empty();
+									$('#gConnect').show();
+								},
+								error : function(e) {
+									console.log(e);
+								}
+							});
+					window.location.href = "index.html";
+					//document.registrationForm.submit();	
+				},
+
+				/**
+				 * Gets and renders the list of people visible to this app.
+				 */
+				people : function() {
+					gapi.client.plus.people
+							.list({
+								'userId' : 'me',
+								'collection' : 'visible'
+							})
+							.then(
+									function(res) {
+										var people = res.result;
+										$('#visiblePeople').empty();
+										$('#visiblePeople').append(
+												'Number of people visible to this app: '
+														+ people.totalItems
+														+ '<br/>');
+										for ( var personIndex in people.items) {
+											person = people.items[personIndex];
+											$('#visiblePeople')
+													.append(
+															'<img src="' + person.image.url + '">');
+										}
+									});
+				},
+
+				/**
+				 * Gets and renders the currently signed in user's profile data.
+				 */
+				profile : function() {
+					gapi.client.plus.people
+							.get({
+								'userId' : 'me'
+							})
+							.then(
+									function(res) {
+										//	alert("rendering details");
+										var profile = res.result;
+										$('#profile').empty();
+										$('#profile')
+												.append(
+														$('<p><img src=\"' + profile.image.url + '\"></p>'));
+										$('#profile')
+												.append(
+														$('<p>Hello '
+																+ profile.displayName
+																+ ':'
+																+ profile.emails[0].value
+																+ '!<br />Tagline: '
+																+ profile.tagline
+																+ '<br />About: '
+																+ profile.aboutMe
+																+ '</p>'));
+										document.getElementById('emailtag').innerHTML = profile.emails[0].value
+												.trim();
+										document.getElementById('clientname').innerHTML = profile.displayName
+												.trim();
+										listAllRequests(profile.emails[0].value);
+										$('#disconnect').show();
+										$('#main-slider').show();
+
+										if (profile.cover && profile.coverPhoto) {
+											$('#profile')
+													.append(
+															$('<p><img src=\"' + profile.cover.coverPhoto.url + '\"></p>'));
+										}
+									}, function(err) {
+										var error = err.result;
+										$('#profile').empty();
+										$('#profile').append(error.message);
+									});
+				}
+			};
+		})();
+
+		/**
+		 * jQuery initialization
+		 */
+		$(document)
+				.ready(
+						function() {
+							$('#disconnect').click(helper.disconnect);
+							$('#loaderror').hide();
+							// alert($('[data-clientid]').length);
+							if ($('[data-clientid]').length < 0) {
+								alert('This sample requires your OAuth credentials (client ID) '
+										+ 'from the Google APIs console:\n'
+										+ '    https://code.google.com/apis/console/#:access\n\n'
+										+ 'Find and replace YOUR_CLIENT_ID with your client ID.');
+							}
+						});
+
+		/**
+		 * Calls the helper method that handles the authentication flow.
+		 *
+		 * @param {Object} authResult An Object which contains the access token and
+		 *   other authentication information.
+		 */
+		function onSignInCallback(authResult) {
+			helper.onSignInCallback(authResult);
+		}
+	</script>
+	<script src="https://apis.google.com/js/client.js?onload=init"></script>
+</body>
+</html>

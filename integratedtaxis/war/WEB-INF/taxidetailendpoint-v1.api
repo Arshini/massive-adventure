@@ -1,0 +1,282 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://runningtaxis.appspot.com/_ah/api",
+  "name" : "taxidetailendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://runningtaxis.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "rtaxi.com",
+  "ownerName" : "rtaxi.com",
+  "packagePath" : "api",
+  "methods" : {
+    "taxidetailendpoint.listTaxiDetail" : {
+      "path" : "taxidetail",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.rtaxi.api.TaxiDetailEndpoint.listTaxiDetail",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          },
+          "emailAddress" : {
+            "type" : "string",
+            "required" : false
+          },
+          "isPersonal" : {
+            "type" : "string",
+            "required" : false
+          },
+          "isCustomer" : {
+            "type" : "string",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "taxidetailendpoint.updateTaxiDetail" : {
+      "path" : "taxidetail",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.rtaxi.api.TaxiDetailEndpoint.updateTaxiDetail",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "taxidetailendpoint.insertTaxiDetail" : {
+      "path" : "taxidetail",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.rtaxi.api.TaxiDetailEndpoint.insertTaxiDetail",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "taxidetailendpoint.getTaxiDetail" : {
+      "path" : "taxidetail/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.rtaxi.api.TaxiDetailEndpoint.getTaxiDetail",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "taxidetailendpoint.removeTaxiDetail" : {
+      "path" : "taxidetail/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.rtaxi.api.TaxiDetailEndpoint.removeTaxiDetail",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "CollectionResponse_TaxiDetail" : {
+        "id" : "CollectionResponse_TaxiDetail",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "TaxiDetail"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
+      "TaxiDetail" : {
+        "id" : "TaxiDetail",
+        "type" : "object",
+        "properties" : {
+          "trequestid" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "tpickupaddress" : {
+            "type" : "string"
+          },
+          "tpickupgeotag" : {
+            "type" : "string"
+          },
+          "tdropaddress" : {
+            "type" : "string"
+          },
+          "tdropgeotag" : {
+            "type" : "string"
+          },
+          "tstartdate" : {
+            "type" : "string"
+          },
+          "tstarttimehr" : {
+            "type" : "string"
+          },
+          "tstarttimemin" : {
+            "type" : "string"
+          },
+          "tclientname" : {
+            "type" : "string"
+          },
+          "tclientemail" : {
+            "type" : "string"
+          },
+          "tclientmobile" : {
+            "type" : "string"
+          },
+          "tclientremarks" : {
+            "type" : "string"
+          },
+          "tstarttag" : {
+            "type" : "string"
+          },
+          "tclientipaddress" : {
+            "type" : "string"
+          },
+          "tcliententrymode" : {
+            "type" : "string"
+          },
+          "tagentname" : {
+            "type" : "string"
+          },
+          "tagentmobile" : {
+            "type" : "string"
+          },
+          "tagentemail" : {
+            "type" : "string"
+          },
+          "tagentvehileno" : {
+            "type" : "string"
+          },
+          "tagentremarks" : {
+            "type" : "string"
+          },
+          "tagentotp" : {
+            "type" : "string"
+          },
+          "tbookstatus" : {
+            "type" : "string"
+          },
+          "tagentipaddress" : {
+            "type" : "string"
+          },
+          "tagententrymode" : {
+            "type" : "string"
+          },
+          "tagentvehiletype" : {
+            "type" : "string"
+          },
+          "trecordtype" : {
+            "type" : "string"
+          },
+          "troundtrip" : {
+            "type" : "boolean"
+          },
+          "tmorethanday" : {
+            "type" : "boolean"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "com.rtaxi.api.TaxiDetailEndpoint.listTaxiDetail" : {
+        "response" : {
+          "$ref" : "CollectionResponse_TaxiDetail"
+        }
+      },
+      "com.rtaxi.api.TaxiDetailEndpoint.updateTaxiDetail" : {
+        "request" : {
+          "$ref" : "TaxiDetail"
+        },
+        "response" : {
+          "$ref" : "TaxiDetail"
+        }
+      },
+      "com.rtaxi.api.TaxiDetailEndpoint.insertTaxiDetail" : {
+        "request" : {
+          "$ref" : "TaxiDetail"
+        },
+        "response" : {
+          "$ref" : "TaxiDetail"
+        }
+      },
+      "com.rtaxi.api.TaxiDetailEndpoint.getTaxiDetail" : {
+        "response" : {
+          "$ref" : "TaxiDetail"
+        }
+      },
+      "com.rtaxi.api.TaxiDetailEndpoint.removeTaxiDetail" : {
+      }
+    }
+  }
+}

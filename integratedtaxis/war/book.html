@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Home | Running Taxis</title>
+<style>
+html,body,#map-class {
+	height: 600px;
+	width: 100%;
+	margin: 0px;
+	padding-top: 0px;
+	padding-right: 10px;
+	padding-bottom: 15px;
+	padding-left: 10px;
+	style="background-image: url(images/slider/slide1.jpg)"
+}
+</style>
+<!-- core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="css/animate.min.css" rel="stylesheet">
+<link href="css/prettyPhoto.css" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+<link rel="shortcut icon" href="images/ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="images/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="images/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="images/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="images/ico/apple-touch-icon-57-precomposed.png">
+</head>
+<!--/head-->
+
+<body class="homepage">
+
+		<header id="header">
+		
+		<!--/.top-bar-->
+
+		<nav class="navbar navbar-inverse" role="banner">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html"><img
+						src="images/logo.png" alt="logo"></a>
+				</div>
+				<div class="collapse navbar-collapse navbar-right">
+					<div class="social">
+						<ul class="social-share">
+							<li><i class=" top-number fa fa-phone-square">
+									+91-1234567890</i></li>
+							<li><a href="http://www.facebook.com/runningtaxi"><i
+									class="fa fa-facebook"></i></a></li>
+							<li><a href="http://www.twitter.com/runningtaxis"><i
+									class="fa fa-twitter"></i></a></li>
+							<li><a href="www.linkedin.com/runningtaxi"><i
+									class="fa fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="collapse navbar-collapse navbar-right">
+					<ul class="nav navbar-nav">
+						<li ><a href="index.html">Home</a></li>
+						<li ><a href="about-us.html">About Us</a></li>
+						<li class="active"><a href="book.html">Book</a></li>
+							<li ><a href="tlist.html">Availability</a></li>
+							<li ><a href="mylist.html">My Requests</a></li>
+
+						<li><a href="contact-us.html">Contact</a></li>
+					</ul>
+				</div>
+			</div>
+			<!--/.container-->
+		</nav>
+		<!--/nav-->
+
+	</header>
+	<!--/header-->
+
+	<section  id="main-slider" class="no-margin" style="background-color: #eeeff3">
+	<div class="container" align="left">
+		<div class="row" >
+			<div class="col-lg-8">
+				<div class="page-header">
+					<h2>Create New Request </h2>
+				</div>
+
+				<!-- To use feedback icons, ensure that you use Bootstrap v3.1.0 or later -->
+				<form id="registrationForm" method="post" class="form-horizontal"
+					data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+					data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"
+					onsubmit="forBooking()">
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Request Created by</label>
+						<div class="col-sm-5">
+							<select id="trecordtype" class="form-control"
+								data-bv-notempty="true"
+								data-bv-notempty-message="The Request Type is required and cannot be empty"
+								name="trecordtype">
+								<option value="cust">Customer</option>
+								<option value="taxi">Agent/Taxier</option>
+								<option value="taxi">Service provider</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Vehicle Type</label>
+						<div class="col-sm-5">
+							<select id="tagentvehiletype" class="form-control"
+								data-bv-notempty="true"
+								data-bv-notempty-message="The vehicle type is required and cannot be empty"
+								name="tagentvehiletype">
+								<option value="4-Seater">4-Seater</option>
+								<option value="7-Seater">7-Seater</option>
+								<option value="Limo">Limo</option>
+								<option value="Long Vehicle">Long Vehicle</option>
+								<option value="Van">Van</option>
+								<option value="Truck">Truck</option>
+								<option value="Any Vehicle">Any Vehicle</option>
+							</select>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Pickup Location</label>
+						<div class="col-sm-5">
+							<!--a onclick="getLocation()">Current Location</a-->
+							<p id="demo"></p>
+							<input type="text" class="form-control"
+								placeholder="Enter your address" id="tpickupaddress"
+								data-bv-notempty="true"
+								data-bv-notempty-message="The pickup location is required and cannot be empty"
+								data-bv-stringlength="true" data-bv-stringlength-min="4"
+								data-bv-stringlength-message="The pickup location must be more than 6 and less than 90 characters long"
+								onFocus="geolocateAlert()" />
+						</div>
+					</div>
+
+					<!-- div class="form-group">
+						<label class="col-sm-2 control-label">Round Trip?</label>
+						<div class="col-sm-3">
+							<input type="checkbox" name="troundtrip" id="troundtrip"
+								value="true">
+						</div>
+						<label class="col-sm-2 control-label">More days?</label>
+						<div class="col-sm-3">
+							<input type="checkbox" name="tmorethanday" value="true"
+								id="tmorethanday">
+						</div>
+					</div-->
+
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Start date and time</label>
+						<div class="col-sm-5">
+
+							<input type="date" class="form-control;col-sm-2"
+								name="tstartdate" id="tstartdate" placeholder="YYYY-MM-DD"
+								data-bv-date-format="YYYY/MM/DD" data-bv-notempty="true"
+								data-bv-date="true"
+								data-bv-date-message="The start date entered is not valid, it must be future or current date" />
+							<select name="tstarttimehr" id="tstarttimehr">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option selected value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+								<option value="24">24</option>
+
+							</select> <select class="form-control;col-lg-2" name="tstarttimemin"
+								id="tstarttimemin">
+								<option value="00">00</option>
+								<option value="15">15</option>
+								<option value="30">30</option>
+								<option value="45">45</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Drop off Location</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control"
+								placeholder="Enter your drop off address" id="tdropaddress"
+								data-bv-notempty="true"
+								data-bv-notempty-message="The drop off location is required and cannot be empty"
+								data-bv-stringlength="true" data-bv-stringlength-min="4"
+								data-bv-stringlength-message="The dropoff location must be more than 6 and less than 90 characters long"
+								onFocus="geolocateAlert()" />
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Customer name</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" name="tclientname"
+								id="tclientname" data-bv-notempty="true"
+								placeholder="Customer Name"
+								data-bv-notempty-message="The customer name is required and cannot be empty"
+								data-bv-stringlength="true" data-bv-stringlength-min="4"
+								data-bv-stringlength-max="90"
+								data-bv-stringlength-message="The customer name must be more than 6 and less than 90 characters long"
+								data-bv-regexp="true" data-bv-regexp-regexp="^[a-zA-Z0-9 ]+$"
+								data-bv-regexp-message="The customer name can only consist of alphabetical and number" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Email Address</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" name="tclientemail"
+								id="tclientemail" data-bv-notempty="true"
+								placeholder="Email Address" data-bv-stringlength-max="90"
+								data-bv-notempty-message="The email address is required and cannot be empty"
+								data-bv-emailaddress="true"
+								data-bv-emailaddress-message="The email address is not a valid" />
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Contact Number</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" name="tclientmobile"
+								placeholder="Contact Number" id="tclientmobile"
+								data-bv-notempty="true"
+								data-bv-notempty-message="The contact number(mobile) is required and cannot be empty"
+								data-bv-stringlength="true" data-bv-stringlength-min="8"
+								data-bv-stringlength-max="15"
+								data-bv-stringlength-message="The contact number must be more than 6 and less than 15 characters long"
+								data-bv-regexp="true" data-bv-regexp-regexp="^[0-9+-]"
+								data-bv-regexp-message="The contact number can only consist of +  - number(s)" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Comments/Remarks</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" name="tclientremarks"
+								placeholder="Comments / Remarks" id="tclientremarks"
+								data-bv-notempty="false"
+								data-bv-notempty-message="The customer name is not required but if entered must be minimum 6 characters long"
+								data-bv-stringlength="true" data-bv-stringlength-min="6" />
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-sm-9 col-sm-offset-3">
+							<!-- Do NOT use name="submit" or id="submit" for the Submit button -->
+							<button type="reset" class="btn btn-default ">Clear</button>
+							<button type="submit" class="btn btn-default">Submit</button>
+						</div>
+					</div>
+				</form>
+
+			</div>
+			<div class="col-lg-2">
+				<h2>Google ADs</h2>
+			</div>
+		</div>
+		</section>
+	</div>
+	<!--/#main-slider-->
+
+<footer id="footer" class="midnight-blue">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					&copy; 2014 <a target="_blank" href="http://runningtaxi.com/"
+						title="Running Taxis- Free taxi classifieds">Running Taxis</a>.
+					All Rights Reserved.
+				</div>
+				<div class="col-sm-6">
+					<ul class="pull-right">
+						<li><a href="index.html">Home</a></li>
+						<li><a href="about-us.html">About Us</a></li>
+						<li><a href="faq.html">Faq</a></li>
+						<li><a href="contact-us.html">Contact Us</a></li>
+												<li><a href="privacy.html">Privacy</a></li>
+						<li><a href="terms.html">Terms </a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--/#footer-->
+
+
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.prettyPhoto.js"></script>
+	<script src="js/jquery.isotope.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/wow.min.js"></script>
+	<script type="text/javascript"
+		src="/js/bootstrapValidator.min.js"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+	<script src="https://apis.google.com/js/client.js?onload=init"></script>
+
+
+
+	<script type="text/javascript">
+		var placeSearch, tpickupaddressvar, tdropaddressvar;
+		function init() {
+			
+			//Parameters are APIName,APIVersion,CallBack function,API Root 
+			gapi.client.load('taxidetailendpoint', 'v1', null,
+					'https://runningtaxis.appspot.com/_ah/api');
+			tpickupaddressvar = new google.maps.places.Autocomplete(
+			/** @type {HTMLInputElement} */
+			(document.getElementById('tpickupaddress')), {
+				types : [ 'geocode' ]
+			});
+
+			tdropaddressvar = new google.maps.places.Autocomplete(
+			/** @type {HTMLInputElement} */
+			(document.getElementById('tdropaddress')), {
+				types : [ 'geocode' ]
+			});
+
+		}
+
+		function geolocateAlert() {
+			//alert("ALERT s"+document.getElementById('tpickupaddress'));
+		}
+		// [START region_geolocation]
+		// Bias the autocomplete object to the user's geographical location,
+		// as supplied by the browser's 'navigator.geolocation' object.
+		function geolocate() {
+			if (navigator.geolocation) {
+				navigator.geolocation
+						.getCurrentPosition(function(position) {
+							var geolocation = new google.maps.LatLng(
+									position.coords.latitude,
+									position.coords.longitude);
+							autocomplete
+									.setBounds(new google.maps.LatLngBounds(
+											geolocation, geolocation));
+						});
+			}
+
+		}
+
+		$(document).ready(function() {
+			$('#registrationForm').bootstrapValidator();
+		});
+
+		var date = new Date();
+		var date1 = date.getFullYear() + '-' + (date.getMonth() + 1) + '-'
+				+ date.getDate();
+		//alert("date1"+date1)	;
+		document.getElementById('tstartdate').setAttribute("data-bv-date-min",
+				date1);
+		//alert("MINIMUM DATE data-bv-date-min "+document.getElementById('tstartdate').getAttribute("data-bv-date-min"));
+
+		var x = document.getElementById("demo");
+
+		function getLocation() {
+			alert("get Location");
+			if (navigator.geolocation) {
+				alert("get Location1");
+				navigator.geolocation.getCurrentPosition(showPosition);
+				alert("get Location2");
+			} else {
+				alert("get Location3");
+				x.innerHTML = "Geolocation is not supported by this browser.";
+			}
+		}
+
+		function showPosition(position) {
+			x.innerHTML = "Latitude: " + position.coords.latitude
+					+ "<br>Longitude: " + position.coords.longitude;
+		}
+
+		function returnLocation() {
+			alert("returnLocation Location");
+			if (navigator.geolocation) {
+				alert("returnLocation Location1");
+				navigator.geolocation.getCurrentPosition(returnPosition);
+				alert("returnLocation Location2");
+			} else {
+				alert("get Location3");
+				x.innerHTML = "Geolocation is not supported by this browser.";
+			}
+		}
+
+		function returnPosition(position) {
+			return position.coords.latitude + "," + position.coords.longitude;
+		}
+
+		function forBooking() {
+
+			if ($(document).ready(function() {
+				$('#registrationForm').isValid()
+			})) {
+				taxiDetailsForInsert();
+
+			} else {
+				alert("form is not VALID, error oks");
+
+			}
+		}
+
+		//Insert Quote function
+		function taxiDetailsForInsert() {
+			//Validate the entries
+			//alert("in taxi details for inserty");
+
+			var _tpickupgeotag = tpickupaddressvar.getPlace();
+			var _tdropgeotag = tdropaddressvar.getPlace();
+			//alert("PICKUP place.geometry.location.lat()"+_tpickupgeotag.geometry.location.lat());
+			//alert("PICKUP place.geometry.location.lng()"+_tpickupgeotag.geometry.location.lng());
+
+			//alert("DROP place.geometry.location.lat()"+_tdropgeotag.geometry.location.lat());
+			//alert("DROP place.geometry.location.lng()"+_tdropgeotag.geometry.location.lng());
+
+			var _tpickupaddress = document.getElementById('tpickupaddress').value;
+			var _tdropaddress = document.getElementById('tdropaddress').value;
+			var _tstartdate = document.getElementById('tstartdate').value;
+			var _tstarttimehr = document.getElementById('tstarttimehr').value;
+			var _tstarttimemin = document.getElementById('tstarttimemin').value;
+			var _tclientname = document.getElementById('tclientname').value;
+			var _tclientemail = document.getElementById('tclientemail').value;
+			var _tclientmobile = document.getElementById('tclientmobile').value;
+			var _tclientremarks = document.getElementById('tclientremarks').value;
+			if ((_tclientremarks == '') || (_tclientremarks == null)) {
+				//alert("_tclientremarks is empty" + _tclientremarks);
+				_tclientremarks = "Nil";
+			}
+
+			var _tagentvehiletype = document.getElementById('tagentvehiletype').value;
+			// 			var _troundtrip = document.getElementById('troundtrip').value;
+			// 			var _tmorethanday = document.getElementById('tmorethanday').value;
+			var _trecordtype = document.getElementById('trecordtype').value;
+			//	alert("trecordtype"+_trecordtype);
+			//Build the Request Object
+
+			var requestData = {};
+			requestData.tpickupaddress = _tpickupaddress;
+			requestData.tdropaddress = _tdropaddress;
+			requestData.tstartdate = _tstartdate;
+			requestData.tstarttimehr = _tstarttimehr;
+			requestData.tstarttimemin = _tstarttimemin;
+			requestData.tclientname = _tclientname;
+			requestData.tclientemail = _tclientemail;
+			requestData.tclientmobile = _tclientmobile;
+			requestData.tclientremarks = _tclientremarks;
+			requestData.tagentvehiletype = _tagentvehiletype;
+			// 			requestData.troundtrip = _troundtrip;
+			// 			requestData.tmorethanday = _tmorethanday;
+			requestData.trecordtype = _trecordtype;
+			requestData.tbookstatus = "In Process";
+			requestData.tclientipaddress = navigator.userAgent;
+			requestData.tpickupgeotag = _tpickupgeotag.geometry.location.lat()
+					+ "," + _tpickupgeotag.geometry.location.lng();
+			requestData.tdropgeotag = _tdropgeotag.geometry.location.lat()
+					+ "," + _tdropgeotag.geometry.location.lng();
+
+			//alert("***************tclientipaddress tclientipaddress.........*************");
+			gapi.client.taxidetailendpoint
+					.insertTaxiDetail(requestData)
+					.execute(
+							alert("***************Inserted successfully.........*************"));
+			//alert("***************everything else.........*************");
+			window.location.replace("mylist.html");
+			//	document.registrationForm.action="www.google.com";
+			document.registrationForm.submit();
+		}
+	</script>
+	<script src="https://apis.google.com/js/client.js?onload=init"></script>
+</body>
+
+</html>

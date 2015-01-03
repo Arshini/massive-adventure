@@ -1,0 +1,215 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://runningtaxis.appspot.com/_ah/api",
+  "name" : "agentdetailendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://runningtaxis.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "rtaxi.com",
+  "ownerName" : "rtaxi.com",
+  "methods" : {
+    "agentdetailendpoint.updateAgentDetail" : {
+      "path" : "agentdetail",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.rtaxi.api.AgentDetailEndpoint.updateAgentDetail",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "agentdetailendpoint.removeAgentDetail" : {
+      "path" : "agentdetail/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.rtaxi.api.AgentDetailEndpoint.removeAgentDetail",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "agentdetailendpoint.insertAgentDetail" : {
+      "path" : "agentdetail",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.rtaxi.api.AgentDetailEndpoint.insertAgentDetail",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "agentdetailendpoint.getAgentDetail" : {
+      "path" : "agentdetail/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.rtaxi.api.AgentDetailEndpoint.getAgentDetail",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "agentdetailendpoint.listAgentDetail" : {
+      "path" : "agentdetail",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.rtaxi.api.AgentDetailEndpoint.listAgentDetail",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "AgentDetail" : {
+        "id" : "AgentDetail",
+        "type" : "object",
+        "properties" : {
+          "tagentid" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "tagentname" : {
+            "type" : "string"
+          },
+          "tagentemail" : {
+            "type" : "string"
+          },
+          "tagentmobile" : {
+            "type" : "string"
+          },
+          "tagentvehicle" : {
+            "type" : "string"
+          },
+          "tagentaddress" : {
+            "type" : "string"
+          },
+          "tagentremarks" : {
+            "type" : "string"
+          },
+          "tagentstatus" : {
+            "type" : "string"
+          },
+          "tagentpriority" : {
+            "type" : "string"
+          },
+          "tagentgeotag" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CollectionResponse_AgentDetail" : {
+        "id" : "CollectionResponse_AgentDetail",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "AgentDetail"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "com.rtaxi.api.AgentDetailEndpoint.updateAgentDetail" : {
+        "request" : {
+          "$ref" : "AgentDetail"
+        },
+        "response" : {
+          "$ref" : "AgentDetail"
+        }
+      },
+      "com.rtaxi.api.AgentDetailEndpoint.removeAgentDetail" : {
+      },
+      "com.rtaxi.api.AgentDetailEndpoint.insertAgentDetail" : {
+        "request" : {
+          "$ref" : "AgentDetail"
+        },
+        "response" : {
+          "$ref" : "AgentDetail"
+        }
+      },
+      "com.rtaxi.api.AgentDetailEndpoint.getAgentDetail" : {
+        "response" : {
+          "$ref" : "AgentDetail"
+        }
+      },
+      "com.rtaxi.api.AgentDetailEndpoint.listAgentDetail" : {
+        "response" : {
+          "$ref" : "CollectionResponse_AgentDetail"
+        }
+      }
+    }
+  }
+}
